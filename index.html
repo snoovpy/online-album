@@ -49,19 +49,6 @@
       padding: 48px 24px 80px;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 40px 40px;
-      opacity: 0.3;
-      pointer-events: none;
-      z-index: 0;
-    }
-
     .wrap {
       position: relative;
       z-index: 1;
@@ -594,7 +581,13 @@
       { src: 'images/milky/photo4.jpg', title: 'Milky #4', date: '2024' },
       { src: 'images/milky/photo5.jpg', title: 'Milky #5', date: '2024' }
     ],
-    boris: []
+    boris: [
+      { src: 'images/boris/3FF8FE54-15DD-42E5-94D0-44F6999F06BB.jpg', title: 'Boris #1', date: '2024' },
+      { src: 'images/boris/IMG_1308.JPG', title: 'Boris #2', date: '2024' },
+      { src: 'images/boris/IMG_1325.JPEG', title: 'Boris #3', date: '2024' },
+      { src: 'images/boris/IMG_1420.JPEG', title: 'Boris #4', date: '2024' },
+      { src: 'images/boris/IMG_1423.JPEG', title: 'Boris #5', date: '2024' }
+    ]
   };
 
   let currentAlbum = 'milky';

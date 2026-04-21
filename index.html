@@ -352,6 +352,21 @@
       letter-spacing: 0.05em;
     }
 
+    .video-indicator {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(135deg, rgba(179, 71, 255, 0.9) 0%, rgba(255, 107, 157, 0.9) 100%);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: 'Space Mono', monospace;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      z-index: 2;
+    }
+
     /* Empty State */
     .empty-state {
       text-align: center;
@@ -406,7 +421,18 @@
       max-height: 85vh;
       object-fit: contain;
       border-radius: 8px;
-      box-shadow: 
+      box-shadow:
+        0 0 60px rgba(179, 71, 255, 0.4),
+        0 0 120px rgba(179, 71, 255, 0.2),
+        0 0 0 1px rgba(179, 71, 255, 0.3);
+      border: 1px solid rgba(179, 71, 255, 0.2);
+    }
+
+    .lightbox-video {
+      max-width: 100%;
+      max-height: 85vh;
+      border-radius: 8px;
+      box-shadow:
         0 0 60px rgba(179, 71, 255, 0.4),
         0 0 120px rgba(179, 71, 255, 0.2),
         0 0 0 1px rgba(179, 71, 255, 0.3);
@@ -538,6 +564,7 @@
     <div class="album-nav">
       <button class="album-btn active" data-album="milky">Milky</button>
       <button class="album-btn" data-album="boris">Boris</button>
+      <button class="album-btn" data-album="milo">Milo</button>
     </div>
   </section>
 
@@ -563,7 +590,8 @@
     <button class="lightbox-close" id="lightboxClose">&times;</button>
     <button class="lightbox-prev" id="lightboxPrev">&#8592;</button>
     <button class="lightbox-next" id="lightboxNext">&#8594;</button>
-    <img class="lightbox-image" id="lightboxImage" src="" alt="">
+    <img class="lightbox-image" id="lightboxImage" src="" alt="" style="display:none;">
+    <video class="lightbox-video" id="lightboxVideo" style="display:none;" controls></video>
     <div class="lightbox-info">
       <h3 id="lightboxTitle"></h3>
       <p id="lightboxDate"></p>
@@ -575,18 +603,24 @@
   // Photo Album Data
   const albums = {
     milky: [
-      { src: 'images/milky/photo1.jpg', title: 'Milky #1', date: '2024' },
-      { src: 'images/milky/photo2.jpg', title: 'Milky #2', date: '2024' },
-      { src: 'images/milky/photo3.jpg', title: 'Milky #3', date: '2024' },
-      { src: 'images/milky/photo4.jpg', title: 'Milky #4', date: '2024' },
-      { src: 'images/milky/photo5.jpg', title: 'Milky #5', date: '2024' }
+      { src: 'images/milky/photo1.jpg', title: 'Milky #1', date: '2024', type: 'image' },
+      { src: 'images/milky/photo2.jpg', title: 'Milky #2', date: '2024', type: 'image' },
+      { src: 'images/milky/photo3.jpg', title: 'Milky #3', date: '2024', type: 'image' },
+      { src: 'images/milky/photo4.jpg', title: 'Milky #4', date: '2024', type: 'image' },
+      { src: 'images/milky/photo5.jpg', title: 'Milky #5', date: '2024', type: 'image' }
     ],
     boris: [
-      { src: 'images/boris/3FF8FE54-15DD-42E5-94D0-44F6999F06BB.jpg', title: 'Boris #1', date: '2024' },
-      { src: 'images/boris/IMG_1308.JPG', title: 'Boris #2', date: '2024' },
-      { src: 'images/boris/IMG_1325.JPEG', title: 'Boris #3', date: '2024' },
-      { src: 'images/boris/IMG_1420.JPEG', title: 'Boris #4', date: '2024' },
-      { src: 'images/boris/IMG_1423.JPEG', title: 'Boris #5', date: '2024' }
+      { src: 'images/boris/3FF8FE54-15DD-42E5-94D0-44F6999F06BB.jpg', title: 'Boris #1', date: '2024', type: 'image' },
+      { src: 'images/boris/IMG_1308.JPG', title: 'Boris #2', date: '2024', type: 'image' },
+      { src: 'images/boris/IMG_1325.JPEG', title: 'Boris #3', date: '2024', type: 'image' },
+      { src: 'images/boris/IMG_1420.JPEG', title: 'Boris #4', date: '2024', type: 'image' },
+      { src: 'images/boris/IMG_1423.JPEG', title: 'Boris #5', date: '2024', type: 'image' }
+    ],
+    milo: [
+      { src: 'images/milo/milo1.jpg', title: 'Milo #1', date: '2024', type: 'image' },
+      { src: 'images/milo/milo2.jpg', title: 'Milo #2', date: '2024', type: 'image' },
+      { src: 'images/milo/milo3.jpg', title: 'Milo #3', date: '2024', type: 'image' },
+      { src: 'images/milo/milo4.jpg', title: 'Milo #4', date: '2024', type: 'image' }
     ]
   };
 
@@ -599,6 +633,7 @@
   const albumTitle = document.getElementById('albumTitle');
   const lightbox = document.getElementById('lightbox');
   const lightboxImage = document.getElementById('lightboxImage');
+  const lightboxVideo = document.getElementById('lightboxVideo');
   const lightboxTitle = document.getElementById('lightboxTitle');
   const lightboxDate = document.getElementById('lightboxDate');
   const lightboxClose = document.getElementById('lightboxClose');
@@ -635,8 +670,23 @@
         const card = document.createElement('div');
         card.className = 'photo-card';
         card.style.animationDelay = `${index * 0.05}s`;
+        
+        const mediaType = photo.type || 'image';
+        let mediaElement;
+        
+        if (mediaType === 'video') {
+          mediaElement = `
+            <video src="${photo.src}" muted loop onmouseover="this.play()" onmouseout="this.pause()" style="width:100%;height:280px;object-fit:cover;display:block;"></video>
+            <div class="video-indicator">▶ Video</div>
+          `;
+        } else {
+          mediaElement = `
+            <img src="${photo.src}" alt="${photo.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22280%22%3E%3Crect fill=%22%2318181b%22 width=%22280%22 height=%22280%22/%3E%3Ctext fill=%22%23adadb8%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-family=%22monospace%22 font-size=%2214%22%3EImage not found%3C/text%3E%3C/svg%3E'">
+          `;
+        }
+        
         card.innerHTML = `
-          <img src="${photo.src}" alt="${photo.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22280%22%3E%3Crect fill=%22%2318181b%22 width=%22280%22 height=%22280%22/%3E%3Ctext fill=%22%23adadb8%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-family=%22monospace%22 font-size=%2214%22%3EImage not found%3C/text%3E%3C/svg%3E'">
+          ${mediaElement}
           <div class="photo-overlay">
             <div class="photo-title">${photo.title}</div>
             <div class="photo-date">${photo.date}</div>
@@ -653,8 +703,21 @@
   function openLightbox(index) {
     currentPhotoIndex = index;
     const photo = albums[currentAlbum][index];
+    const mediaType = photo.type || 'image';
     
-    lightboxImage.src = photo.src;
+    // Hide both elements first
+    lightboxImage.style.display = 'none';
+    lightboxVideo.style.display = 'none';
+    
+    if (mediaType === 'video') {
+      lightboxVideo.src = photo.src;
+      lightboxVideo.style.display = 'block';
+      lightboxVideo.play();
+    } else {
+      lightboxImage.src = photo.src;
+      lightboxImage.style.display = 'block';
+    }
+    
     lightboxTitle.textContent = photo.title;
     lightboxDate.textContent = photo.date;
     lightbox.classList.add('active');
@@ -664,6 +727,7 @@
   }
 
   function closeLightbox() {
+    lightboxVideo.pause();
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
   }
@@ -672,8 +736,21 @@
     const photos = albums[currentAlbum];
     currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
     const photo = photos[currentPhotoIndex];
+    const mediaType = photo.type || 'image';
     
-    lightboxImage.src = photo.src;
+    // Hide both elements first
+    lightboxImage.style.display = 'none';
+    lightboxVideo.style.display = 'none';
+    
+    if (mediaType === 'video') {
+      lightboxVideo.src = photo.src;
+      lightboxVideo.style.display = 'block';
+      lightboxVideo.play();
+    } else {
+      lightboxImage.src = photo.src;
+      lightboxImage.style.display = 'block';
+    }
+    
     lightboxTitle.textContent = photo.title;
     lightboxDate.textContent = photo.date;
   }
@@ -682,8 +759,21 @@
     const photos = albums[currentAlbum];
     currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
     const photo = photos[currentPhotoIndex];
+    const mediaType = photo.type || 'image';
     
-    lightboxImage.src = photo.src;
+    // Hide both elements first
+    lightboxImage.style.display = 'none';
+    lightboxVideo.style.display = 'none';
+    
+    if (mediaType === 'video') {
+      lightboxVideo.src = photo.src;
+      lightboxVideo.style.display = 'block';
+      lightboxVideo.play();
+    } else {
+      lightboxImage.src = photo.src;
+      lightboxImage.style.display = 'block';
+    }
+    
     lightboxTitle.textContent = photo.title;
     lightboxDate.textContent = photo.date;
   }

@@ -1,0 +1,32 @@
+# Video files - too large for GitHub
+*.mp4
+*.MP4
+*.mov
+*.MOV
+*.avi
+*.AVI
+*.mkv
+*.MKV
+*.webm
+*.WEBM
+
+# Large media files
+*.mp3
+*.MP3
+*.wav
+*.WAV
+*.ogg
+*.OGG
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dependencies
+node_modules/

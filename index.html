@@ -10,25 +10,39 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0e0e10;
-      --surface: #18181b;
-      --border: #2a2a2e;
-      --purple: #9147ff;
-      --purple-glow: rgba(145, 71, 255, 0.15);
-      --text: #efeff1;
-      --muted: #adadb8;
-      --mod: #ff6b6b;
-      --mod-glow: rgba(255, 107, 107, 0.12);
-      --fun: #00d4aa;
-      --fun-glow: rgba(0, 212, 170, 0.12);
-      --info: #ffb347;
-      --info-glow: rgba(255, 179, 71, 0.12);
+      --bg: #0a0a0f;
+      --surface: #15151a;
+      --border: #2d2d3a;
+      --purple: #b347ff;
+      --purple-glow: rgba(179, 71, 255, 0.3);
+      --text: #ffffff;
+      --muted: #a0a0b0;
+      --mod: #ff5e5e;
+      --mod-glow: rgba(255, 94, 94, 0.3);
+      --fun: #00f0c8;
+      --fun-glow: rgba(0, 240, 200, 0.3);
+      --info: #ffc93d;
+      --info-glow: rgba(255, 201, 61, 0.3);
+      --pink: #ff6b9d;
+      --pink-glow: rgba(255, 107, 157, 0.3);
+      --blue: #4facfe;
+      --blue-glow: rgba(79, 172, 254, 0.3);
+      --orange: #ff9a44;
+      --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: var(--bg);
+      background-image: 
+        radial-gradient(ellipse at 10% 20%, rgba(179, 71, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 80%, rgba(0, 240, 200, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 107, 157, 0.08) 0%, transparent 60%);
       color: var(--text);
       font-family: 'Space Mono', monospace;
       min-height: 100vh;
@@ -64,8 +78,9 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--purple-glow);
-      border: 1px solid var(--purple);
+      background: linear-gradient(135deg, rgba(179, 71, 255, 0.2) 0%, rgba(255, 107, 157, 0.2) 100%);
+      border: 1px solid transparent;
+      border-image: linear-gradient(135deg, #b347ff 0%, #ff6b9d 100%) 1;
       color: var(--purple);
       font-size: 11px;
       font-family: 'Space Mono', monospace;
@@ -74,14 +89,16 @@
       padding: 4px 10px;
       border-radius: 4px;
       margin-bottom: 16px;
+      box-shadow: 0 0 16px rgba(179, 71, 255, 0.2);
     }
 
     .badge::before {
       content: '';
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--purple);
+      background: linear-gradient(135deg, #b347ff 0%, #ff6b9d 100%);
       animation: pulse 1.8s ease-in-out infinite;
+      box-shadow: 0 0 8px rgba(179, 71, 255, 0.8);
     }
 
     h1 {
@@ -90,16 +107,28 @@
       font-weight: 800;
       line-height: 1;
       letter-spacing: -0.02em;
-      color: var(--text);
+      background: linear-gradient(135deg, #fff 0%, #b347ff 50%, #00f0c8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    h1 span { color: var(--purple); }
+    h1 span { 
+      background: linear-gradient(135deg, #ff6b9d 0%, #ffc93d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
     .subtitle {
       margin-top: 12px;
       color: var(--muted);
       font-size: 13px;
       letter-spacing: 0.02em;
+      background: linear-gradient(90deg, #a0a0b0 0%, #4facfe 50%, #00f0c8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     section {
@@ -122,7 +151,10 @@
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--muted);
+      background: linear-gradient(90deg, #b347ff 0%, #ff6b9d 50%, #00f0c8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       margin-bottom: 14px;
     }
 
@@ -130,7 +162,7 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: var(--border);
+      background: linear-gradient(90deg, transparent 0%, #b347ff 20%, #ff6b9d 50%, #00f0c8 80%, transparent 100%);
     }
 
     .grid {
@@ -208,8 +240,18 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.3; }
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(179, 71, 255, 0.8); }
+      50%       { opacity: 0.4; box-shadow: 0 0 20px rgba(179, 71, 255, 0.4); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    @keyframes glow {
+      0%, 100% { filter: brightness(1) saturate(1); }
+      50% { filter: brightness(1.1) saturate(1.2); }
     }
 
     /* Album Navigation */
@@ -236,14 +278,16 @@
 
     .album-btn:hover {
       border-color: var(--purple);
-      box-shadow: 0 0 16px var(--purple-glow);
+      box-shadow: 0 0 20px var(--purple-glow), 0 0 40px rgba(179, 71, 255, 0.2);
       transform: translateY(-2px);
+      background: linear-gradient(135deg, rgba(179, 71, 255, 0.1) 0%, rgba(255, 107, 157, 0.1) 100%);
     }
 
     .album-btn.active {
-      background: var(--purple-glow);
+      background: linear-gradient(135deg, rgba(179, 71, 255, 0.2) 0%, rgba(255, 107, 157, 0.2) 100%);
       border-color: var(--purple);
       color: var(--purple);
+      box-shadow: 0 0 24px var(--purple-glow), inset 0 0 20px rgba(179, 71, 255, 0.1);
     }
 
     /* Gallery Grid */
@@ -268,7 +312,10 @@
     .photo-card:hover {
       transform: translateY(-4px);
       border-color: var(--purple);
-      box-shadow: 0 8px 24px var(--purple-glow);
+      box-shadow: 
+        0 8px 32px var(--purple-glow),
+        0 0 0 1px rgba(179, 71, 255, 0.3),
+        inset 0 0 20px rgba(179, 71, 255, 0.1);
     }
 
     .photo-card img {
@@ -302,13 +349,19 @@
       font-family: 'Syne', sans-serif;
       font-size: 16px;
       font-weight: 700;
-      color: var(--text);
+      background: linear-gradient(135deg, #fff 0%, #b347ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       margin-bottom: 4px;
     }
 
     .photo-date {
       font-size: 11px;
-      color: var(--muted);
+      background: linear-gradient(90deg, #00f0c8 0%, #4facfe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       letter-spacing: 0.05em;
     }
 
@@ -366,7 +419,11 @@
       max-height: 85vh;
       object-fit: contain;
       border-radius: 8px;
-      box-shadow: 0 0 40px rgba(145, 71, 255, 0.3);
+      box-shadow: 
+        0 0 60px rgba(179, 71, 255, 0.4),
+        0 0 120px rgba(179, 71, 255, 0.2),
+        0 0 0 1px rgba(179, 71, 255, 0.3);
+      border: 1px solid rgba(179, 71, 255, 0.2);
     }
 
     .lightbox-close {
@@ -388,8 +445,10 @@
     }
 
     .lightbox-close:hover {
-      background: var(--surface);
+      background: linear-gradient(135deg, rgba(179, 71, 255, 0.2) 0%, rgba(255, 107, 157, 0.2) 100%);
       color: var(--purple);
+      box-shadow: 0 0 20px rgba(179, 71, 255, 0.4);
+      transform: scale(1.1);
     }
 
     .lightbox-prev,
@@ -421,8 +480,10 @@
 
     .lightbox-prev:hover,
     .lightbox-next:hover {
-      background: var(--purple);
-      border-color: var(--purple);
+      background: linear-gradient(135deg, #b347ff 0%, #ff6b9d 100%);
+      border-color: transparent;
+      color: var(--text);
+      box-shadow: 0 0 30px rgba(179, 71, 255, 0.5);
       transform: translateY(-50%) scale(1.1);
     }
 
@@ -435,12 +496,18 @@
       font-family: 'Syne', sans-serif;
       font-size: 20px;
       font-weight: 700;
-      color: var(--text);
+      background: linear-gradient(135deg, #fff 0%, #b347ff 50%, #ff6b9d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       margin-bottom: 4px;
     }
 
     .lightbox-info p {
-      color: var(--muted);
+      background: linear-gradient(90deg, #00f0c8 0%, #4facfe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       font-size: 12px;
       letter-spacing: 0.05em;
     }

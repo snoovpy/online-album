@@ -528,7 +528,7 @@
       text-align: center;
     }
 
-    .lightbox-info h3 {
+    .lightbox-content h3 {
       font-family: 'Syne', sans-serif;
       font-size: 20px;
       font-weight: 700;
@@ -536,7 +536,8 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
+      text-align: center;
     }
 
     .lightbox-number {
@@ -584,7 +585,7 @@
         margin-top: 12px;
       }
       
-      .lightbox-info h3 {
+      .lightbox-content h3 {
         font-size: 18px;
         margin-bottom: 6px;
       }
@@ -654,10 +655,10 @@
 <div class="lightbox" id="lightbox">
   <div class="lightbox-content">
     <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <h3 id="lightboxTitle"></h3>
     <img class="lightbox-image" id="lightboxImage" src="" alt="" style="display:none;">
     <video class="lightbox-video" id="lightboxVideo" style="display:none;" controls></video>
     <div class="lightbox-info">
-      <h3 id="lightboxTitle"></h3>
       <div class="lightbox-nav">
         <button class="lightbox-prev" id="lightboxPrev">&#8592;</button>
         <span class="lightbox-number" id="lightboxNumber"></span>

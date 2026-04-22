@@ -1280,10 +1280,15 @@
   document.getElementById('randomBtn').addEventListener('click', showRandomPhoto);
 
   lightboxClose.addEventListener('click', closeLightbox);
+  lightboxClose.addEventListener('touchstart', closeLightbox);
   lightboxPrev.addEventListener('click', showPrevPhoto);
   lightboxNext.addEventListener('click', showNextPhoto);
 
   lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  
+  lightbox.addEventListener('touchstart', (e) => {
     if (e.target === lightbox) closeLightbox();
   });
 

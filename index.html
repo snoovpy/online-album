@@ -458,54 +458,54 @@
 
     .lightbox-close {
       position: absolute;
-      top: -40px;
+      top: -50px;
       right: 0;
-      background: none;
-      border: none;
-      color: var(--text);
-      font-size: 32px;
+      background: linear-gradient(135deg, rgba(212, 168, 180, 0.9) 0%, rgba(155, 138, 184, 0.9) 100%);
+      border: 2px solid var(--text);
+      color: white;
+      font-size: 28px;
       cursor: pointer;
       transition: all 0.2s ease;
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
+      box-shadow: 0 2px 12px rgba(61, 56, 54, 0.4);
+      font-weight: 700;
+      line-height: 1;
     }
 
     .lightbox-close:hover {
-      background: linear-gradient(135deg, rgba(155, 138, 184, 0.35) 0%, rgba(212, 168, 180, 0.35) 100%);
-      color: var(--purple);
-      box-shadow: 0 0 20px rgba(155, 138, 184, 0.5);
-      transform: scale(1.1);
+      background: linear-gradient(135deg, rgba(212, 168, 180, 1) 0%, rgba(155, 138, 184, 1) 100%);
+      color: white;
+      box-shadow: 0 4px 20px rgba(61, 56, 54, 0.5);
+      transform: scale(1.15);
+    }
+
+    .lightbox-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 12px;
     }
 
     .lightbox-prev,
     .lightbox-next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
       background: var(--surface);
       border: 1px solid var(--border);
       color: var(--text);
-      font-size: 24px;
-      width: 48px;
-      height: 48px;
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .lightbox-prev {
-      left: -60px;
-    }
-
-    .lightbox-next {
-      right: -60px;
     }
 
     .lightbox-prev:hover,
@@ -513,8 +513,8 @@
       background: linear-gradient(135deg, #9b8ab8 0%, #d4a8b4 100%);
       border-color: transparent;
       color: var(--text);
-      box-shadow: 0 0 30px rgba(155, 138, 184, 0.5);
-      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 0 20px rgba(155, 138, 184, 0.5);
+      transform: scale(1.1);
     }
 
     .lightbox-info {
@@ -530,16 +530,14 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
-    .lightbox-info p {
-      background: linear-gradient(90deg, #8ab8a8 0%, #a0c0d8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-size: 12px;
-      letter-spacing: 0.05em;
+    .lightbox-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
     }
 
     @keyframes fadeIn {
@@ -606,12 +604,15 @@
 <div class="lightbox" id="lightbox">
   <div class="lightbox-content">
     <button class="lightbox-close" id="lightboxClose">&times;</button>
-    <button class="lightbox-prev" id="lightboxPrev">&#8592;</button>
-    <button class="lightbox-next" id="lightboxNext">&#8594;</button>
     <img class="lightbox-image" id="lightboxImage" src="" alt="" style="display:none;">
     <video class="lightbox-video" id="lightboxVideo" style="display:none;" controls></video>
     <div class="lightbox-info">
       <h3 id="lightboxTitle"></h3>
+      <div class="lightbox-nav">
+        <button class="lightbox-prev" id="lightboxPrev">&#8592;</button>
+        <span class="lightbox-number" id="lightboxNumber"></span>
+        <button class="lightbox-next" id="lightboxNext">&#8594;</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1016,6 +1017,7 @@
   const lightboxImage = document.getElementById('lightboxImage');
   const lightboxVideo = document.getElementById('lightboxVideo');
   const lightboxTitle = document.getElementById('lightboxTitle');
+  const lightboxNumber = document.getElementById('lightboxNumber');
   const lightboxClose = document.getElementById('lightboxClose');
   const lightboxPrev = document.getElementById('lightboxPrev');
   const lightboxNext = document.getElementById('lightboxNext');
@@ -1098,6 +1100,7 @@
     }
     
     lightboxTitle.textContent = photo.title;
+    lightboxNumber.textContent = `${index + 1} / ${albums[currentAlbum].length}`;
     lightbox.classList.add('active');
     
     // Prevent body scroll
@@ -1130,6 +1133,7 @@
     }
     
     lightboxTitle.textContent = photo.title;
+    lightboxNumber.textContent = `${currentPhotoIndex + 1} / ${albums[currentAlbum].length}`;
   }
 
   function showNextPhoto() {
@@ -1152,6 +1156,7 @@
     }
     
     lightboxTitle.textContent = photo.title;
+    lightboxNumber.textContent = `${currentPhotoIndex + 1} / ${albums[currentAlbum].length}`;
   }
 
   // Random button functionality

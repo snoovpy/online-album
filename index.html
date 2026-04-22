@@ -277,6 +277,32 @@
       box-shadow: 0 0 24px var(--purple-glow), inset 0 0 20px rgba(200, 184, 224, 0.2);
     }
 
+    .random-btn {
+      background: linear-gradient(135deg, rgba(240, 196, 208, 0.4) 0%, rgba(200, 184, 224, 0.4) 100%);
+      border: 1px solid var(--pink);
+      color: var(--pink);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 16px rgba(240, 196, 208, 0.3);
+    }
+
+    .random-btn:hover {
+      background: linear-gradient(135deg, rgba(240, 196, 208, 0.6) 0%, rgba(200, 184, 224, 0.6) 100%);
+      border-color: var(--purple);
+      color: var(--purple);
+      box-shadow: 0 0 30px rgba(240, 196, 208, 0.5), 0 0 50px rgba(200, 184, 224, 0.3);
+      transform: translateY(-2px) scale(1.05);
+    }
+
     /* Gallery Grid */
     .gallery-grid {
       display: grid;
@@ -556,6 +582,7 @@
       <button class="album-btn active" data-album="milky">Milky</button>
       <button class="album-btn" data-album="boris">Boris</button>
       <button class="album-btn" data-album="milo_stitch">Milo + Stitch</button>
+      <button class="random-btn" id="randomBtn">🎲 Random</button>
     </div>
   </section>
 
@@ -1127,10 +1154,50 @@
     lightboxTitle.textContent = photo.title;
   }
 
+  // Random button functionality
+  function showRandomPhoto() {
+    // Get all photos from all albums
+    const allPhotos = [];
+    const albumNames = Object.keys(albums);
+    
+    albumNames.forEach(albumName => {
+      albums[albumName].forEach((photo, index) => {
+        allPhotos.push({
+          album: albumName,
+          index: index,
+          photo: photo
+        });
+      });
+    });
+    
+    if (allPhotos.length === 0) return;
+    
+    // Select random photo
+    const randomItem = allPhotos[Math.floor(Math.random() * allPhotos.length)];
+    
+    // Set current album and index
+    currentAlbum = randomItem.album;
+    currentPhotoIndex = randomItem.index;
+    
+    // Update active album button
+    albumButtons.forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.album === randomItem.album) {
+        btn.classList.add('active');
+      }
+    });
+    
+    // Load the album and show the random photo
+    loadAlbum(randomItem.album);
+    openLightbox(randomItem.index);
+  }
+
   // Event Listeners
   albumButtons.forEach(btn => {
     btn.addEventListener('click', () => loadAlbum(btn.dataset.album));
   });
+
+  document.getElementById('randomBtn').addEventListener('click', showRandomPhoto);
 
   lightboxClose.addEventListener('click', closeLightbox);
   lightboxPrev.addEventListener('click', showPrevPhoto);

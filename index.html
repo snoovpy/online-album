@@ -1285,11 +1285,21 @@
   lightboxNext.addEventListener('click', showNextPhoto);
 
   lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
+    // Only close if clicking directly on the lightbox background
+    if (e.target === lightbox) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeLightbox();
+    }
   });
   
   lightbox.addEventListener('touchstart', (e) => {
-    if (e.target === lightbox) closeLightbox();
+    // Only close if touching directly on the lightbox background
+    if (e.target === lightbox) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeLightbox();
+    }
   });
 
   // Keyboard Navigation

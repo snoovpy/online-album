@@ -1174,7 +1174,16 @@
       lightboxImage.style.display = 'block';
     }
     
-    lightboxTitle.textContent = photo.title;
+    // Display album name instead of photo title
+    let albumDisplayName = currentAlbum;
+    if (currentAlbum === 'milky boris') {
+      albumDisplayName = 'Milky + boris';
+    } else if (currentAlbum === 'milo stitch') {
+      albumDisplayName = 'Milo + stitch';
+    } else {
+      albumDisplayName = currentAlbum.charAt(0).toUpperCase() + currentAlbum.slice(1);
+    }
+    lightboxTitle.textContent = albumDisplayName;
     lightboxNumber.textContent = `${index + 1} / ${albums[currentAlbum].length}`;
     lightbox.classList.add('active');
     
@@ -1207,7 +1216,16 @@
       lightboxImage.style.display = 'block';
     }
     
-    lightboxTitle.textContent = photo.title;
+    // Display album name instead of photo title
+    let albumDisplayName = currentAlbum;
+    if (currentAlbum === 'milky boris') {
+      albumDisplayName = 'Milky + boris';
+    } else if (currentAlbum === 'milo stitch') {
+      albumDisplayName = 'Milo + stitch';
+    } else {
+      albumDisplayName = currentAlbum.charAt(0).toUpperCase() + currentAlbum.slice(1);
+    }
+    lightboxTitle.textContent = albumDisplayName;
     lightboxNumber.textContent = `${currentPhotoIndex + 1} / ${albums[currentAlbum].length}`;
   }
 
@@ -1230,7 +1248,16 @@
       lightboxImage.style.display = 'block';
     }
     
-    lightboxTitle.textContent = photo.title;
+    // Display album name instead of photo title
+    let albumDisplayName = currentAlbum;
+    if (currentAlbum === 'milky boris') {
+      albumDisplayName = 'Milky + boris';
+    } else if (currentAlbum === 'milo stitch') {
+      albumDisplayName = 'Milo + stitch';
+    } else {
+      albumDisplayName = currentAlbum.charAt(0).toUpperCase() + currentAlbum.slice(1);
+    }
+    lightboxTitle.textContent = albumDisplayName;
     lightboxNumber.textContent = `${currentPhotoIndex + 1} / ${albums[currentAlbum].length}`;
   }
 

@@ -627,10 +627,10 @@
     <div class="album-nav">
       <button class="album-btn active" data-album="milky">Milky</button>
       <button class="album-btn" data-album="boris">Boris</button>
-      <button class="album-btn" data-album="milky_boris">Milky + Boris</button>
+      <button class="album-btn" data-album="milky boris">Milky + Boris</button>
       <button class="album-btn" data-album="milo">Milo</button>
       <button class="album-btn" data-album="stitch">Stitch</button>
-      <button class="album-btn" data-album="milo_stitch">Milo + Stitch</button>
+      <button class="album-btn" data-album="milo stitch">Milo + Stitch</button>
     </div>
   </section>
 
@@ -1097,9 +1097,9 @@
     
     // Update title
     let displayName = albumName;
-    if (albumName === 'milky_boris') {
+    if (albumName === 'milky boris') {
       displayName = 'Milky + boris';
-    } else if (albumName === 'milo_stitch') {
+    } else if (albumName === 'milo stitch') {
       displayName = 'Milo + stitch';
     } else {
       displayName = albumName.charAt(0).toUpperCase() + albumName.slice(1);

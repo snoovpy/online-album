@@ -630,7 +630,7 @@
       <button class="album-btn" data-album="milky_boris">Milky + Boris</button>
       <button class="album-btn" data-album="milo">Milo</button>
       <button class="album-btn" data-album="stitch">Stitch</button>
-      <button class="album-btn" data-album="milo_stitch">Milo and Stitch</button>
+      <button class="album-btn" data-album="milo_stitch">Milo + Stitch</button>
     </div>
   </section>
 
@@ -1093,7 +1093,15 @@
     const photos = albums[albumName];
     
     // Update title
-    albumTitle.textContent = `${albumName}'s gallery`;
+    let displayName = albumName;
+    if (albumName === 'milky_boris') {
+      displayName = 'Milky + boris';
+    } else if (albumName === 'milo_stitch') {
+      displayName = 'Milo + stitch';
+    } else {
+      displayName = albumName.charAt(0).toUpperCase() + albumName.slice(1);
+    }
+    albumTitle.textContent = `${displayName}'s gallery`;
     
     // Update active button
     albumButtons.forEach(btn => {

@@ -559,11 +559,15 @@
     /* Responsive */
     @media (max-width: 768px) {
       .lightbox-close {
-        top: -35px;
-        right: 5px;
-        width: 36px;
-        height: 36px;
-        font-size: 22px;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        font-size: 24px;
+        z-index: 10000;
+        background: linear-gradient(135deg, rgba(212, 168, 180, 0.95) 0%, rgba(155, 138, 184, 0.95) 100%);
+        border: 2px solid var(--text);
       }
       
       .lightbox-content {

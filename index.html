@@ -1118,7 +1118,7 @@
           `;
         } else {
           mediaElement = `
-            <img src="${photo.src}" alt="${photo.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22280%22%3E%3Crect fill=%22%2318181b%22 width=%22280%22 height=%22280%22/%3E%3Ctext fill=%22%23adadb8%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-family=%22monospace%22 font-size=%2214%22%3EImage not found%3C/text%3E%3C/svg%3E'">
+            <img src="${photo.src}?v=20240422" alt="${photo.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22280%22%3E%3Crect fill=%22%2318181b%22 width=%22280%22 height=%22280%22/%3E%3Ctext fill=%22%23adadb8%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-family=%22monospace%22 font-size=%2214%22%3EImage not found%3C/text%3E%3C/svg%3E'">
           `;
         }
         
@@ -1150,7 +1150,7 @@
       lightboxVideo.style.display = 'block';
       lightboxVideo.play();
     } else {
-      lightboxImage.src = photo.src;
+      lightboxImage.src = photo.src + '?v=20240422';
       lightboxImage.style.display = 'block';
     }
     
@@ -1183,7 +1183,7 @@
       lightboxVideo.style.display = 'block';
       lightboxVideo.play();
     } else {
-      lightboxImage.src = photo.src;
+      lightboxImage.src = photo.src + '?v=20240422';
       lightboxImage.style.display = 'block';
     }
     
@@ -1206,7 +1206,7 @@
       lightboxVideo.style.display = 'block';
       lightboxVideo.play();
     } else {
-      lightboxImage.src = photo.src;
+      lightboxImage.src = photo.src + '?v=20240422';
       lightboxImage.style.display = 'block';
     }
     
